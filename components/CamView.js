@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Camera } from "expo-camera"
-import { Dimensions } from "react-native"
+import { Dimensions, View } from "react-native"
+import { Menu, Button } from "react-native-paper"
 
 
 export default function CamView() {
@@ -24,9 +25,39 @@ export default function CamView() {
     const screenWidth = Dimensions.get("screen").width
     const height = screenWidth / 3 * 4
 
-    return granted &&
-           <Camera ref={cameraRef}
-             onCameraReady={onReady}
-             ratio={"4:3"}
-             style={{width: screenWidth, height: height}} />
+    return (
+      <View>
+        {granted &&
+          <Camera ref={cameraRef}
+            onCameraReady={onReady}
+            ratio={"4:3"}
+            style={{width: screenWidth, height: height}} />
+        }
+        {
+          // render props
+          /*
+          any props that used by the component to render something
+          */
+        }
+        <Menu anchor={
+          <Button mode="contained">ratio</Button>
+        }>
+          <Menu.Item title={"1:1"} />
+          <Menu.Item title={"4:3"} />
+          <Menu.Item title={"16:9"} />
+        </Menu>
+      </View>)
 }
+/*
+const DataList = (props) => {
+  const data = props.data  // kind of array
+  const Item = props.render  // function to use for render
+
+return <View>{
+    data.map(d => <Item data={d}/>)
+  }</View>
+}
+
+<DataList data={[1, 2, 3]} render={item => <Text>Item: {item}</Text>}/>
+<DataList data={[1, 2, 3]} render={item => <Text>different: {item}</Text>}/>
+*/
