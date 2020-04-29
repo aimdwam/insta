@@ -19,31 +19,6 @@ export default function CamView(props) {
       }) ()
     }, [])
 
-    /* no good
-    useEffect(async () => {
-        const response = await Camera.requestPermissionsAsync()
-        setGranted(response.granted)
-    }, [])
-    */
-
-    // main point: why we can't use async function directly as 1st param for useEffect
-    /*
-    function useEffect(someFn, deps) {
-      // some logic
-      
-      someFn(evt)    // ignore any result from the someFn, then any kind of function will do
-      
-      const cleanUpFn = someFn()  // this is the expectation, normal function returning a cleanup function
-
-      const cleanUpFn = asyncFn()  // the problem is cleanUpFn is no longer a normal function, it will be a Promise
-
-      // some other code
-
-      if (cleanUpFn)
-        cleanUpFn()   // only make sense if cleanUpFn is really a function, not a Promise
-    }
-    */
-
     const onReady = async evt => {
       const ratios = await cameraRef.current.getSupportedRatiosAsync()
       console.log("ratios: ", ratios)
@@ -57,7 +32,8 @@ export default function CamView(props) {
     }
 
     const takePicture = async evt => {
-
+      const result = await cameraRef.current.takePictureAsync()
+      console.log('take picture result: ', result)
     }
 
     return (
