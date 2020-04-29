@@ -4,7 +4,7 @@ import { Dimensions, View } from "react-native"
 import { Menu, Button } from "react-native-paper"
 
 
-export default function CamView() {
+export default function CamView(props) {
     const [granted, setGranted] = useState(false)
     const cameraRef = useRef(null)    // create a box for us to be filled
     // cameraRef.current <-- to get the current value inside the box
@@ -27,6 +27,7 @@ export default function CamView() {
 
     return (
       <View>
+        {props.children('3:4')}
         {granted &&
           <Camera ref={cameraRef}
             onCameraReady={onReady}
@@ -37,6 +38,19 @@ export default function CamView() {
           // render props
           /*
           any props that used by the component to render something
+
+          // Component
+          Menu, Button, Text, View
+          // vs Component Instance
+          <Button />
+          <View> <Text/> </View>
+
+          // function
+          (data/callback) => expects Compoent instance / node
+
+          Special props
+          // children
+          props.children is the thing that is nested inside the tag
           */
         }
         <Menu anchor={

@@ -12,7 +12,7 @@ export default function App() {
     <Provider>
     <View style={styles.container}>
       <Text style={{fontSize: 40}}>hello world</Text>
-      <CamView/>
+      <CamView>{(ratio) => <Text>the ratio is {ratio}</Text>}</CamView>
       <Button icon="camera" mode="contained" onPress={() => console.log('Pressed')}>
         Press me
       </Button>
