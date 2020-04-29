@@ -12,9 +12,14 @@ export default function App() {
   const onPicTaken = async pic => {
     console.log(pic)
     const photoId = Number( (await AsyncStorage.getItem('photoId')) || 0 )
-    await AsyncStorage.setItem('photoId', (photoId + 1) + "")  // ignore the result, just make sure it happens
 
-    const dest = FileSystem.documentDirectory + "photos/" + photoId + ".jpg"
+    // 3 strings in javascript
+    `some string ${photoId + 1}.`    // can resolve variables // if photo id is 1 => 'some string 2.'
+    'no escape "" '
+    " ' "
+    await AsyncStorage.setItem('photoId', `${photoId + 1}`)  // ignore the result, just make sure it happens
+
+    const dest = FileSystem.documentDirectory + `photos/${photoId}.jpg`
     await FileSystem.copyAsync({from: pic.uri, to: dest})
   }
 
