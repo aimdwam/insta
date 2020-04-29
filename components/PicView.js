@@ -5,6 +5,7 @@ export default PicView = ({onBack, pic}) => {
 
   return (
     <Card>
+      <Card.Cover source={{uri: pic.uri}}/>
       <Card.Title title='Picture View' />
       <Card.Content>
         <Text>size: {pic.width} x {pic.height}</Text>
