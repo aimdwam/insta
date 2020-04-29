@@ -8,6 +8,7 @@ export default function CamView(props) {
     const [granted, setGranted] = useState(false)
     const [menuVisible, setMenuVisible] = useState(false)
     const [ratios, setRatios] = useState([])
+    const [ratio, setRatio] = useState("4:3")
     const cameraRef = useRef(null)    // create a box for us to be filled
     // cameraRef.current <-- to get the current value inside the box
 
@@ -26,22 +27,28 @@ export default function CamView(props) {
     }
 
     const screenWidth = Dimensions.get("screen").width
-    const height = screenWidth / 3 * 4
+    const getHeight = (ratio, width) => {
+      const [h, w] = ratio.split(':')   // split ratio string (eg. 4:3 => ["4", "3"])
+      return width / Number(w) * Number(h)
+    }
 
     return (
       <View>
         {granted &&
           <Camera ref={cameraRef}
             onCameraReady={onReady}
-            ratio={"4:3"}
-            style={{width: screenWidth, height: height}} />
+            ratio={ratio}
+            style={{width: screenWidth, height: getHeight(ratio, screenWidth)}} />
         }
         <Menu visible={menuVisible}
           onDismiss={() => setMenuVisible(false)}
           anchor={
             <Button mode="contained" onPress={() => setMenuVisible(true)}>ratio</Button>
         }>{
-          ratios.map(r => <Menu.Item key={r} title={r} />)
+          ratios.map(r => <Menu.Item key={r} title={r} onPress={() => {
+            setMenuVisible(false)
+            setRatio(r)
+          }} />)
         }
         </Menu>
       </View>)
