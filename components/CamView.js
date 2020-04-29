@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Camera } from "expo-camera"
-import { Dimensions, View } from "react-native"
+import { Dimensions, View, AsyncStorage } from "react-native"
 import { Menu, Button } from "react-native-paper"
 
 
-export default function CamView(props) {
+export default function CamView( {onPicTaken} ) {
     const [granted, setGranted] = useState(false)
     const [menuVisible, setMenuVisible] = useState(false)
     const [ratios, setRatios] = useState([])
@@ -34,6 +34,7 @@ export default function CamView(props) {
     const takePicture = async evt => {
       const result = await cameraRef.current.takePictureAsync()
       console.log('take picture result: ', result)
+      onPicTaken(result)    // return of onPicTaken is ignored, so it can be anything including Promoise
     }
 
     return (
