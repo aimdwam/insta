@@ -13,9 +13,6 @@ export default function App() {
     <View style={styles.container}>
       <Text style={{fontSize: 40}}>hello world</Text>
       <CamView/>
-      <Button icon="camera" mode="contained" onPress={() => console.log('Pressed')}>
-        Press me
-      </Button>
     </View>
     </Provider>
   );
