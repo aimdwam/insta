@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, ScrollView } from 'react-native';
 import { Camera } from 'expo-camera';
 import CamView from './components/CamView';
 import PicView from './components/PicView';
@@ -25,6 +25,12 @@ export default function App() {
   return (
     <Provider>
     <View style={styles.container}>
+      <ScrollView>
+        {
+          // get list of files from directory by FileSystem.readDirectoryAsync
+          // files.map(f => <PicView key={uri} pic={f} />)
+        }
+      </ScrollView>
       <Text style={{fontSize: 40}}>hello world</Text>
       {pic && <PicView pic={pic} onBack={() => setPic(null)} />}
       {!pic && <CamView onPicTaken={onPicTaken} />}
